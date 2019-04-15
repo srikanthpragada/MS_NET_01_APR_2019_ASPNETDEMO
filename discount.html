@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Discount Calculation</title>
+    <style>
+        body {font-family:Verdana;font-size:12pt;}
+        h1 {color:red}
+        h2 {color:blue}
+    </style>
+    <script>
+        function calculate()
+        {
+            amount = parseInt(document.getElementById("amount").value)
+            if (amount > 10000)
+                discount = amount * 0.20;
+            else
+                discount = amount * 0.10;
+
+            dis = document.getElementById("discount")
+            dis.innerHTML = discount;
+        }
+    </script>
+</head>
+<body>
+<h1>Discount Calculation</h1>
+Sales Amount <input type="number" id="amount" />
+<p/>
+<input type="button" onclick="calculate()" value="Calculate Discount" />
+<p/>
+<h2 id="discount"></h2>
+</body>
+</html>
