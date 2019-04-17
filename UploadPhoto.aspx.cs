@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,7 +10,11 @@ public partial class UploadPhoto : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        DirectoryInfo folder = new DirectoryInfo(Request.MapPath("/photos"));
+        foreach(FileInfo finfo in  folder.GetFiles())
+        {
+            lblLinks.Text += $"<a target='_blank' href='/photos/{finfo.Name}'>{finfo.Name}</a><br/>";
+        }
     }
 
     protected void btnUpload_Click(object sender, EventArgs e)

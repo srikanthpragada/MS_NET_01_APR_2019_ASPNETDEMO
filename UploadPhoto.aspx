@@ -17,7 +17,8 @@
         <asp:Label ID="lblMsg" runat="server" 
             Text="" 
             EnableViewState="false"></asp:Label>
-
+        <h3>List of Images</h3>
+        <asp:Label ID="lblLinks" runat="server" Text="" EnableViewState="false"></asp:Label>
     </form>
 </body>
 </html>
