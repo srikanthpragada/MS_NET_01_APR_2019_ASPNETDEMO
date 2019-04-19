@@ -1,0 +1,45 @@
+Creating procedure
+====================================
+CREATE PROCEDURE [dbo].[Sale]
+	@prodid int, @qty int 
+AS
+begin
+     declare @qoh int
+	 declare @price money 
+
+     /* find out whether product is valid */
+	 if not exists(select * from products where prodid = @prodid)
+	  begin
+	     raiserror('Invalid Product ID',16,1)
+		 return
+      end 
+
+	 /* Find out qoh for product */
+	 select @qoh = qoh, @price = price from products 
+	 where prodid = @prodid
+
+	 if @qoh < @qty
+	   begin
+	     raiserror('Insufficient Quantity',16,2)
+		 return
+       end;
+ 
+     begin tran 
+     /* insert a new row into SALES table */
+	 insert into sales(prodid,qty,amount,transdate)
+	     values (@prodid,@qty, @qty * @price, getdate())
+ 
+     /* Update PRODUCTS table */
+	 update products set qoh = qoh - @qty
+	 where prodid = @prodid
+	 commit tran 
+
+end
+
+
+Calling procedure 
+==================
+execute sale 200,1
+
+execute sale 100,20
+
