@@ -11,9 +11,11 @@
             (@"Data Source=(localdb)\mssqllocaldb;Integrated Security=True;Initial Catalog=msdb");
         con.Open();
         // Excute command
-        string cmdstr = "update products set price = " + txtPrice.Text
-              + " where prodid = " + txtProdid.Text;
+        string cmdstr = "update products set price = @price where prodid = @prodid";
         SqlCommand cmd = new SqlCommand(cmdstr, con);
+        // Replace paramters with values 
+        cmd.Parameters.AddWithValue("@prodid", txtProdid.Text);
+        cmd.Parameters.AddWithValue("@price", txtPrice.Text);
         int count = cmd.ExecuteNonQuery();
         if (count == 1)
             lblMsg.Text = "Updated Successfully!";
